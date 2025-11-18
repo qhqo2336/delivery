@@ -13,16 +13,8 @@ from utils.history import save_history_item, get_stats
 from utils.weather import get_weather_data, format_weather_info, get_weather_recommendation
 from utils.delivery import get_all_delivery_links, extract_menu_name_from_recommendation
 
-# .env 파일 로드
+# .env 파일 로드 (로컬 환경용)
 load_dotenv()
-
-# 페이지 설정
-st.set_page_config(
-    page_title="AI 메뉴 추천 서비스",
-    page_icon="🤖",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
 
 # OpenAI 클라이언트 초기화
 @st.cache_resource

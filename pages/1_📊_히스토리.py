@@ -10,12 +10,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.history import get_recent_history, get_stats, clear_history
 
-st.set_page_config(
-    page_title="히스토리 - AI 메뉴 추천",
-    page_icon="📊",
-    layout="wide"
-)
-
 st.title("📊 추천 히스토리")
 st.markdown("과거에 받았던 메뉴 추천 기록과 통계를 확인할 수 있습니다.")
 st.markdown("---")

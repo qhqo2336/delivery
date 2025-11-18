@@ -11,12 +11,6 @@ import hashlib
 # 상위 디렉토리의 utils 모듈을 import하기 위한 경로 추가
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-st.set_page_config(
-    page_title="그룹 투표 - AI 메뉴 추천",
-    page_icon="🗳️",
-    layout="wide"
-)
-
 # 세션 스토리지 (간단한 JSON 파일 기반)
 VOTE_DIR = "data/votes"
 

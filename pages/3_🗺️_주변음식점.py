@@ -20,12 +20,6 @@ from utils.yogiyo_api import (
     get_restaurant_menus
 )
 
-st.set_page_config(
-    page_title="주변 음식점 찾기",
-    page_icon="🗺️",
-    layout="wide"
-)
-
 st.title("🗺️ 주변 음식점 찾기")
 st.markdown("원하는 메뉴와 위치를 입력하면 주변 음식점을 찾아드립니다.")
 st.markdown("---")

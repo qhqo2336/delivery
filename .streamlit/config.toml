@@ -1,0 +1,27 @@
+[theme]
+# 테마 설정 (light 또는 dark)
+# primaryColor: 주요 색상 (버튼, 링크 등)
+# backgroundColor: 메인 배경색
+# secondaryBackgroundColor: 사이드바 및 위젯 배경색
+# textColor: 텍스트 색상
+# font: 폰트 (sans serif, serif, monospace)
+
+primaryColor = "#FF4B4B"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+font = "sans serif"
+
+[server]
+# 서버 설정
+headless = false
+port = 8501
+enableCORS = false
+enableXsrfProtection = true
+
+[browser]
+# 브라우저 설정
+gatherUsageStats = false
+
+
+

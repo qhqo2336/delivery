@@ -207,14 +207,14 @@ if should_search:
             # 음식점 목록 표시
             for idx, shop in enumerate(filtered_shops[:30]):  # 최대 30개만 표시
                 with st.container():
-                    col_img, col_info, col_action = st.columns([1.5, 3, 1])
+                    col_img, col_info, col_action = st.columns([2, 5, 2])
                     
                     with col_img:
                         # 썸네일 이미지
                         thumbnail_url = shop.get('thumbnail_url')
                         if thumbnail_url:
                             try:
-                                st.image(thumbnail_url, width=200, use_container_width=True)
+                                st.image(thumbnail_url, use_container_width=True)
                             except:
                                 st.write("📷")
                         else:
@@ -235,7 +235,7 @@ if should_search:
                         review_count = shop.get('review_count', 0)
                         stars = "⭐" * int(rating) + "☆" * (5 - int(rating))
                         
-                        info_col1, info_col2, info_col3, info_col4 = st.columns(4)
+                        info_col1, info_col2, info_col3, info_col4 = st.columns([2.5, 1.5, 2, 2])
                         
                         with info_col1:
                             st.markdown(f"**{stars}** {rating} ({review_count}개 리뷰)")

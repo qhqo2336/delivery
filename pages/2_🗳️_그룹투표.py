@@ -232,7 +232,7 @@ else:
         new_session_id = st.session_state['new_vote_created']
         
         # 공유 링크 생성
-        base_url = "http://localhost:8501/그룹투표"  # 배포 시 실제 URL로 변경
+        base_url = "https://delivery-6b8aksjtxpc2767pwr49fg.streamlit.app/그룹투표"
         share_link = f"{base_url}?session={new_session_id}"
         
         st.markdown("---")
@@ -332,7 +332,7 @@ else:
             
             with action_col2:
                 # 링크 복사
-                base_url = "http://localhost:8501/그룹투표"
+                base_url = "https://delivery-6b8aksjtxpc2767pwr49fg.streamlit.app/그룹투표"
                 share_link = f"{base_url}?session={session_id}"
                 st.markdown("**공유 링크:**")
                 st.code(share_link, language=None)

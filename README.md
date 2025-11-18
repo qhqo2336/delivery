@@ -1,6 +1,12 @@
 # 🍽️ AI 기반 맞춤형 메뉴 추천 서비스
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://delivery-6b8aksjtxpc2767pwr49fg.streamlit.app/)
+
 **오늘 뭐 먹지?** 고민은 이제 그만! AI가 당신의 상황에 딱 맞는 메뉴를 추천해드립니다.
+
+## 🌐 라이브 데모
+
+🚀 **지금 바로 사용해보세요**: https://delivery-6b8aksjtxpc2767pwr49fg.streamlit.app/
 
 ## 📋 서비스 소개
 

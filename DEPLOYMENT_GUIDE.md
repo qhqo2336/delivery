@@ -1,5 +1,9 @@
 # Streamlit Cloud 배포 가이드
 
+## 🌐 배포된 앱
+
+**라이브 URL**: https://delivery-6b8aksjtxpc2767pwr49fg.streamlit.app/
+
 ## 🚀 배포 방법
 
 ### 1. GitHub 레포지토리 준비

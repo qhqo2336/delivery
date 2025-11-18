@@ -16,8 +16,7 @@ from utils.yogiyo_api import (
     filter_shops, 
     get_yogiyo_shop_url,
     get_location_coordinates,
-    get_category_code,
-    get_restaurant_menus
+    get_category_code
 )
 
 st.title("🗺️ 주변 음식점 찾기")
@@ -283,105 +282,6 @@ if should_search:
                         # 지도 링크
                         naver_url = get_naver_map_search_url(shop_name, location)
                         st.markdown(f"[🗺️ 네이버 지도]({naver_url})")
-                    
-                    # 메뉴 보기 expander - 카드 하단에 전체 width로 배치
-                    if shop_id:
-                        with st.expander("📋 메뉴 상세보기", expanded=False):
-                            lat, lng = get_location_coordinates(location)
-                            
-                            with st.spinner("메뉴 정보를 불러오는 중..."):
-                                menu_data = get_restaurant_menus(shop_id, lat, lng)
-                            
-                            if menu_data:
-                                menu_sections = menu_data.get('menu_sections', [])
-                                menus = menu_data.get('menu', {})
-                                
-                                if menu_sections:
-                                    # 섹션별로 메뉴 표시
-                                    for section in menu_sections:
-                                        section_title = section.get('title', '메뉴')
-                                        section_type = section.get('type', 'LIST')
-                                        section_items = section.get('items', [])
-                                        section_desc = section.get('description', '')
-                                        
-                                        # 섹션 헤더
-                                        if section_type == 'CURATION':
-                                            st.markdown(f"### ⭐ {section_title}")
-                                        else:
-                                            st.markdown(f"### 📋 {section_title}")
-                                        
-                                        if section_desc:
-                                            st.caption(section_desc)
-                                        
-                                        # 메뉴 아이템을 4열 그리드로 표시
-                                        if section_items:
-                                            menu_cols = st.columns(4)
-                                            
-                                            for menu_idx, item_id in enumerate(section_items):
-                                                col = menu_cols[menu_idx % 4]
-                                                menu_item = menus.get(str(item_id))
-                                                
-                                                if menu_item:
-                                                    with col:
-                                                        # 메뉴 카드
-                                                        with st.container():
-                                                            # 메뉴 이미지
-                                                            thumbnail = menu_item.get('thumbnail', {})
-                                                            image_url = thumbnail.get('image', '')
-                                                            if image_url:
-                                                                try:
-                                                                    st.image(image_url, use_container_width=True)
-                                                                except:
-                                                                    pass
-                                                            
-                                                            # 메뉴 이름 + 베스트 뱃지
-                                                            menu_name = menu_item.get('name', '')
-                                                            badges = menu_item.get('badges', [])
-                                                            badge_text = ""
-                                                            for badge in badges:
-                                                                if badge.get('label') == '베스트':
-                                                                    badge_text = " 🔥"
-                                                            
-                                                            st.markdown(f"**{menu_name}**{badge_text}")
-                                                            
-                                                            # 설명 (짧게만)
-                                                            description = menu_item.get('description', '')
-                                                            if description:
-                                                                if len(description) > 30:
-                                                                    description = description[:30] + "..."
-                                                                st.caption(description)
-                                                            
-                                                            # 가격
-                                                            price_info = menu_item.get('price', {})
-                                                            final_price = price_info.get('final_price', 0)
-                                                            origin_price = price_info.get('origin_price', 0)
-                                                            
-                                                            if final_price != origin_price and origin_price > 0:
-                                                                st.markdown(f"~~{origin_price:,}원~~ **{final_price:,}원**")
-                                                            else:
-                                                                st.markdown(f"**{final_price:,}원**")
-                                                            
-                                                            # 리뷰 수
-                                                            review_count = menu_item.get('review_count', 0)
-                                                            if review_count > 0:
-                                                                st.caption(f"💬 리뷰 {review_count}개")
-                                                            
-                                                            # 품절 여부
-                                                            if menu_item.get('soldout'):
-                                                                st.error("❌ 품절")
-                                                            
-                                                            st.markdown("---")
-                                        
-                                        st.markdown("")
-                                    
-                                    # 전체 메뉴 링크
-                                    st.info(f"📱 전체 메뉴 및 주문은 [요기요에서 확인하기]({yogiyo_url})")
-                                else:
-                                    st.warning("메뉴 정보가 없습니다.")
-                                    st.markdown(f"[🍽️ 요기요에서 확인하기]({yogiyo_url})")
-                            else:
-                                st.error("메뉴를 불러올 수 없습니다.")
-                                st.markdown(f"[🍽️ 요기요에서 확인하기]({yogiyo_url})")
                     
                     if idx < len(filtered_shops) - 1:
                         st.markdown("---")

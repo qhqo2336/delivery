@@ -16,10 +16,10 @@ from utils.delivery import get_all_delivery_links, extract_menu_name_from_recomm
 # .env 파일 로드 (로컬 환경용)
 load_dotenv()
 
-# OpenAI 클라이언트 초기화
+# OpenAI API 키 확인
 @st.cache_resource
-def get_openai_client():
-    # Streamlit secrets 또는 환경 변수에서 API 키 가져오기
+def get_api_key():
+    """API 키 가져오기 (없으면 None 반환)"""
     api_key = None
     
     # 1. Streamlit secrets에서 시도
@@ -32,33 +32,43 @@ def get_openai_client():
     if not api_key:
         api_key = os.getenv("OPENAI_API_KEY")
     
+    return api_key
+
+# OpenAI 클라이언트 초기화
+def get_openai_client():
+    """OpenAI 클라이언트 생성 (API 키 없으면 None 반환)"""
+    api_key = get_api_key()
+    
     if not api_key:
-        st.error("""
-        ⚠️ **OPENAI_API_KEY가 설정되지 않았습니다.**
-        
-        다음 중 하나의 방법으로 API Key를 설정해주세요:
-        
-        **방법 1: .env 파일 생성 (권장)**
-        ```
-        프로젝트 루트에 .env 파일을 생성하고:
-        OPENAI_API_KEY=your_api_key_here
-        ```
-        
-        **방법 2: Streamlit Secrets 사용**
-        ```
-        .streamlit/secrets.toml 파일을 생성하고:
-        OPENAI_API_KEY = "your_api_key_here"
-        ```
-        
-        API Key는 [OpenAI Platform](https://platform.openai.com/api-keys)에서 발급받을 수 있습니다.
-        """)
-        st.stop()
+        return None
     
     return OpenAI(api_key=api_key)
 
 # GPT를 사용한 메뉴 추천 함수
 def get_menu_recommendation(user_data, weather_data=None):
     client = get_openai_client()
+    
+    if client is None:
+        st.error("""
+        ⚠️ **OPENAI_API_KEY가 설정되지 않았습니다.**
+        
+        AI 메뉴 추천 기능을 사용하려면 API Key를 설정해주세요:
+        
+        **Streamlit Cloud에서 설정:**
+        1. App 메뉴(⋮) > Settings > Secrets
+        2. 다음 내용 입력:
+        ```
+        OPENAI_API_KEY = "sk-your-api-key-here"
+        ```
+        3. Save 후 앱 재시작
+        
+        **로컬 환경에서 설정:**
+        - 프로젝트 루트에 `.env` 파일 생성
+        - `OPENAI_API_KEY=your_api_key_here` 추가
+        
+        API Key는 [OpenAI Platform](https://platform.openai.com/api-keys)에서 발급받을 수 있습니다.
+        """)
+        return None
     
     # 날씨 정보 추가
     weather_info = ""
@@ -125,6 +135,17 @@ def get_menu_recommendation(user_data, weather_data=None):
 # 메인 UI
 st.title("🍽️ AI 기반 맞춤형 메뉴 추천 서비스")
 st.markdown("**오늘 뭐 먹지?** 고민은 이제 그만! AI가 당신의 상황에 딱 맞는 메뉴를 추천해드립니다.")
+
+# API 키 상태 확인 및 경고 표시
+if get_api_key() is None:
+    st.warning("""
+    ⚠️ **OpenAI API 키가 설정되지 않았습니다.** 
+    AI 메뉴 추천 기능을 사용하려면 API 키를 설정해주세요.
+    
+    **설정 방법:** 
+    - Streamlit Cloud: App Settings > Secrets에서 `OPENAI_API_KEY` 설정
+    - 로컬: 프로젝트 루트에 `.env` 파일 생성 후 `OPENAI_API_KEY=your-key` 추가
+    """)
 
 # 날씨 정보 표시
 weather_data = get_weather_data("Seoul")

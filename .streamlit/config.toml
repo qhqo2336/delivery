@@ -24,5 +24,14 @@ maxUploadSize = 200
 # 브라우저 설정
 gatherUsageStats = false
 
+[client]
+# 클라이언트 설정
+showErrorDetails = false
+toolbarMode = "minimal"
+
+[ui]
+# UI 설정 (와이드 레이아웃 최적화)
+hideSidebarNav = false
+
 
 

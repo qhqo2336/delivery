@@ -15,7 +15,7 @@ st.markdown("### 오늘 뭐 먹지? 고민은 이제 그만!")
 st.markdown("---")
 
 # 환영 메시지
-col1, col2, col3 = st.columns([1, 2, 1])
+col1, col2, col3 = st.columns([1, 3, 1])
 
 with col2:
     st.markdown("""

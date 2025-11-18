@@ -15,7 +15,11 @@ st.markdown("과거에 받았던 메뉴 추천 기록과 통계를 확인할 수
 st.markdown("---")
 
 # 통계 정보
-stats = get_stats()
+try:
+    stats = get_stats()
+except Exception as e:
+    st.error(f"통계 정보를 불러오는 중 오류가 발생했습니다: {str(e)}")
+    stats = {'total_count': 0, 'favorite_food_types': [], 'avg_budget': 0, 'most_common_time': '없음'}
 
 if stats['total_count'] == 0:
     st.info("📭 아직 추천 받은 기록이 없습니다. 메인 페이지에서 메뉴를 추천받아보세요!")

@@ -14,10 +14,11 @@ font = "sans serif"
 
 [server]
 # 서버 설정
-headless = false
+headless = true
 port = 8501
 enableCORS = false
 enableXsrfProtection = true
+maxUploadSize = 200
 
 [browser]
 # 브라우저 설정

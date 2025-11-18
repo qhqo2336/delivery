@@ -148,16 +148,20 @@ if get_api_key() is None:
     """)
 
 # 날씨 정보 표시
-weather_data = get_weather_data("Seoul")
-if weather_data:
-    weather_info = format_weather_info(weather_data)
-    weather_hint = get_weather_recommendation(weather_data)
-    
-    col_weather1, col_weather2 = st.columns([1, 2])
-    with col_weather1:
-        st.info(f"**현재 날씨**: {weather_info}")
-    with col_weather2:
-        st.success(f"💡 **날씨 추천**: {weather_hint}")
+try:
+    weather_data = get_weather_data("Seoul")
+    if weather_data:
+        weather_info = format_weather_info(weather_data)
+        weather_hint = get_weather_recommendation(weather_data)
+        
+        col_weather1, col_weather2 = st.columns([1, 2])
+        with col_weather1:
+            st.info(f"**현재 날씨**: {weather_info}")
+        with col_weather2:
+            st.success(f"💡 **날씨 추천**: {weather_hint}")
+except Exception as e:
+    # 날씨 정보를 가져오지 못해도 앱은 계속 실행
+    pass
 
 st.markdown("---")
 
